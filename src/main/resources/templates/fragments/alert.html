@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- Save Alert Messages -->
+<div th:if="${save eq 'unsuccess'}" class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Error!</strong> Jabatan Data Not Saved.
+</div>
+<div th:if="${save eq 'success'}" class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Success!</strong> Jabatan Data Saved Successfully.
+</div>
+
+<!-- Deletion Alert Messages -->
+<div th:if="${deletion eq 'unsuccess'}" class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Error!</strong> Jabatan Data Not Deleted.
+</div>
+<div th:if="${deletion eq 'success'}" class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Success!</strong> Jabatan Data Deleted Successfully.
+</div>
+
+<!-- Edit Alert Message -->
+<div th:if="${status eq 'notfound'}" class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Error!</strong> Invalid Jabatan.
+</div>
+<div th:if="${edit eq 'unsuccess'}" class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Error!</strong> Jabatan Data Not Edited.
+</div>
+<div th:if="${edit eq 'success'}" class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Success!</strong> Jabatan Data Edited Successfully.
+</div>

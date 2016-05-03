@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- gauge js -->
+<script type="text/javascript" src="/js/gauge/gauge.min.js"></script>
+<script type="text/javascript" src="/js/gauge/gauge_demo.js"></script>
+<!-- bootstrap progress js -->
+<script src="/js/progressbar/bootstrap-progressbar.min.js"></script>
+<!-- icheck -->
+<script src="/js/icheck/icheck.min.js"></script>
+<!-- daterangepicker -->
+<script type="text/javascript" src="/js/moment/moment.min.js"></script>
+<script type="text/javascript" src="/js/datepicker/daterangepicker.js"></script>
+<!-- chart js -->
+<script src="/js/chartjs/chart.min.js"></script>
+
+<script src="/js/custom.js"></script>
+
+<!-- flot js -->
+<!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="/js/flot/jquery.flot.js"></script>
+<script type="text/javascript" src="/js/flot/jquery.flot.pie.js"></script>
+<script type="text/javascript" src="/js/flot/jquery.flot.orderBars.js"></script>
+<script type="text/javascript" src="/js/flot/jquery.flot.time.min.js"></script>
+<script type="text/javascript" src="/js/flot/date.js"></script>
+<script type="text/javascript" src="/js/flot/jquery.flot.spline.js"></script>
+<script type="text/javascript" src="/js/flot/jquery.flot.stack.js"></script>
+<script type="text/javascript" src="/js/flot/curvedLines.js"></script>
+<script type="text/javascript" src="/js/flot/jquery.flot.resize.js"></script>
+<script src="/js/pace/pace.min.js"></script>
+
+<!-- Datatables-->
+<script src="/js/datatables/jquery.dataTables.min.js"></script>
+<script src="/js/datatables/dataTables.bootstrap.js"></script>
+<script src="/js/datatables/dataTables.buttons.min.js"></script>
+<script src="/js/datatables/buttons.bootstrap.min.js"></script>
+<script src="/js/datatables/jszip.min.js"></script>
+<script src="/js/datatables/pdfmake.min.js"></script>
+<script src="/js/datatables/vfs_fonts.js"></script>
+<script src="/js/datatables/buttons.html5.min.js"></script>
+<script src="/js/datatables/buttons.print.min.js"></script>
+<script src="/js/datatables/dataTables.fixedHeader.min.js"></script>
+<script src="/js/datatables/dataTables.keyTable.min.js"></script>
+<script src="/js/datatables/dataTables.responsive.min.js"></script>
+<script src="/js/datatables/responsive.bootstrap.min.js"></script>
+<script src="/js/datatables/dataTables.scroller.min.js"></script>
+
+<!-- DataTables -->
+<script>
+    var handleDataTableButtons = function () {
+        "use strict";
+        $("#datatable-buttons").DataTable({
+            dom: "Bfrtip",
+            buttons: [{
+                    extend: "copy",
+                    className: "btn-sm"
+                }, {
+                    extend: "csv",
+                    className: "btn-sm"
+                }, {
+                    extend: "excel",
+                    className: "btn-sm"
+                }, {
+                    extend: "pdf",
+                    className: "btn-sm"
+                }, {
+                    extend: "print",
+                    className: "btn-sm"
+                }],
+            responsive: !0
+        })
+    },
+            TableManageButtons = function () {
+                "use strict";
+                return {
+                    init: function () {
+                        handleDataTableButtons()
+                    }
+                }
+            }();
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({
+            keys: true
+        });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-scroller').DataTable({
+            ajax: "/js/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+        });
+        var table = $('#datatable-fixed-header').DataTable({
+            fixedHeader: true
+        });
+    });
+    TableManageButtons.init();
+</script>
+<!-- /DataTables -->
+
+<!-- form validation -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.listen('parsley:field:validate', function () {
+            validateFront();
+        });
+        $('#demo-form .btn').on('click', function () {
+            $('#demo-form').parsley().validate();
+            validateFront();
+        });
+        var validateFront = function () {
+            if (true === $('#demo-form').parsley().isValid()) {
+                $('.bs-callout-info').removeClass('hidden');
+                $('.bs-callout-warning').addClass('hidden');
+            } else {
+                $('.bs-callout-info').addClass('hidden');
+                $('.bs-callout-warning').removeClass('hidden');
+            }
+        };
+    });
+
+    $(document).ready(function () {
+        $.listen('parsley:field:validate', function () {
+            validateFront();
+        });
+        $('#demo-form2 .btn').on('click', function () {
+            $('#demo-form2').parsley().validate();
+            validateFront();
+        });
+        var validateFront = function () {
+            if (true === $('#demo-form2').parsley().isValid()) {
+                $('.bs-callout-info').removeClass('hidden');
+                $('.bs-callout-warning').addClass('hidden');
+            } else {
+                $('.bs-callout-info').addClass('hidden');
+                $('.bs-callout-warning').removeClass('hidden');
+            }
+        };
+    });
+    try {
+        hljs.initHighlightingOnLoad();
+    } catch (err) {
+    }
+</script>
+<!-- /form validation -->
+
