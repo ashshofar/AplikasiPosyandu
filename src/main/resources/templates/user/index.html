@@ -12,63 +12,22 @@ and open the template in the editor.
     </head>
     <body>
         <div th:fragment="content">        
-            <!-- Save Alert Messages -->
-            <div th:if="${saveUser eq 'unsuccess'}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Error!</strong> Jabatan Data Not Saved.
-                </div>
-            </div>
-            <div th:if="${saveUser eq 'success'}">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <strong>Success!</strong> Jabatan Data Saved Successfully.
-                </div>
-            </div>
-
-            <!-- Deletion Alert Messages -->
-            <div th:if="${deletion eq 'unsuccess'}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Error!</strong> Jabatan Data Not Deleted.
-                </div>
-            </div>
-            <div th:if="${deletion eq 'success'}">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <strong>Success!</strong> Jabatan Data Deleted Successfully.
-                </div>
-            </div>
-
-            <!-- Edit Alert Message -->
-            <div th:if="${status eq 'notfound'}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Error!</strong> Invalid Jabatan.
-                </div>
-            </div>
-            <div th:if="${edit eq 'unsuccess'}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Error!</strong> Jabatan Data Not Edited.
-                </div>
-            </div>
-            <div th:if="${edit eq 'success'}">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <strong>Success!</strong> Jabatan Data Edited Successfully.
-                </div>
-            </div>
-
             <!-- form -->
             <div class="clearfix"></div>
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Jabatan</h2>
+                            <h2>Pengguna</h2>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
                             <br />
 
-                            <form th:action="@{/user/save}" th:object="${user}" method="post" class="form-horizontal form-label-left">
+                            <form th:action="@{/user/save}" th:object="${user}" method="post" class="form-horizontal form-label-left" id="form1">
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nama">Nama Jabatan<span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nama">Nama<span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" th:field="*{nama}" required="required" class="form-control col-md-7 col-xs-12"/>
@@ -92,14 +51,18 @@ and open the template in the editor.
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="jabatan">Jabatan<span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{jabatan}" required="required" class="form-control col-md-7 col-xs-12"/>
+                                        <select th:field="*{jabatan}" class="select2_single form-control col-md-7 col-xs-12" placeholder="Pilih Jabatan">
+                                            <option value="NONE"></option>
+                                            <option th:each="jabatan : ${allJabatans}"
+                                                    th:value="${jabatan.jabatanId}"
+                                                    th:text="${jabatan.nama}">Cangkuang</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                        <input type="submit" class="btn btn-primary" value="Save"/>
-                                        <button type="button" class="btn btn-danger">Batal</button>
+                                        <input type="submit" class="btn btn-primary" value="Simpan"/>
                                     </div>
                                 </div>
 
@@ -114,48 +77,95 @@ and open the template in the editor.
 
             <!-- Table -->
             <div class="clearfix">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h1>Jabatan</h1>
-                            <br/>
-                            <br/>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Username</th>
-                                        <th>Password</th>
-                                        <th>Jabatan</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:if="${#lists.isEmpty(allUsers)}">
-                                        <td colspan="10" align="center">Tidak ada User yang tersimpan</td> 
-                                    </tr>
-                                    <tr th:each="user : ${allUsers}">
-                                        <td th:text="${user.nama}">Nama</td>
-                                        <td th:text="${user.username}">Username</td>
-                                        <td th:text="${user.password}">Password</td>
-                                        <td th:text="${user.jabatan}">Jabatan</td>
-                                        <td align="center">
-                                            <a th:href="@{/user/edit/{id}(id=${user.userId})}"><span class="glyphicon glyphicon-edit"></span></a> &nbsp; &nbsp;
-                                            <a th:href="@{/user/delete/{id}(id=${user.userId})}"><span class="glyphicon glyphicon-trash"></span></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Username</th>
+                                            <th>Password</th>
+                                            <th>Jabatan</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:if="${#lists.isEmpty(allUsers)}">
+                                            <td colspan="10" align="center">Tidak ada User yang tersimpan</td> 
+                                        </tr>
+                                        <tr th:each="user : ${allUsers}">
+                                            <td th:text="${user.nama}">Nama</td>
+                                            <td th:text="${user.username}">Username</td>
+                                            <td th:text="${user.password}">Password</td>
+                                            <td th:text="${user.jabatan}">Jabatan</td>
+                                            <td align="center">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <form th:action="@{/user/edit/{id}(id=${user.userId})}" th:object="${user}" method="get" id="formedit">
+                                                                <button type="submit" class="btn btn-primary btn-xs">
+                                                                    <i class="glyphicon glyphicon-edit"></i> &nbsp; Edit &nbsp;
+                                                                </button>&nbsp;&nbsp;
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form th:action="@{/user/delete/{id}(id=${user.userId})}" th:object="${user}" method="get" id="formhapus">
+                                                                <button type="submit" class="btn btn-danger btn-xs">
+                                                                    <i class="glyphicon glyphicon-trash"></i> Hapus
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- end Table -->
+            <!-- end Table -->
+            <script>
+                /*<![CDATA[*/
+                var deleteLink = document.querySelectorAll('#formhapus');
+
+                for (var i = 0; i < deleteLink.length; i++) {
+                    deleteLink[i].addEventListener('click', function (event) {
+                        var form = this;
+                        event.preventDefault();
+                        swal({
+                            title: "Apakah Anda Yakin?",
+                            text: "Data Yang Terhapus Tidak Bisa Dikembalikan",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: 'Ya',
+                            cancelButtonText: "Tidak",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                swal({
+                                    title: 'Sukses',
+                                    text: 'Data Telah Tersimpan',
+                                    type: 'success'
+                                }, function () {
+                                    form.submit();
+                                });
+                            } else {
+                                swal("Di Batalkan", "Data Tidak Terhapus", "error");
+                            }
+                        });
+                    });
+                }
+
+                /*]]>*/
+            </script>
         </div>   
     </body>
 </html>

@@ -25,7 +25,7 @@ public class JabatanController {
         model.addAttribute("jabatan", new Jabatan());
         model.addAttribute("allJabatans", (Collection<Jabatan>) jabatanService.getAllJabatans());
         
-        return "/jabatan/list";
+        return "/jabatan/index";
     }
     
     @RequestMapping(value = {"/jabatan/save"}, method = RequestMethod.POST)
