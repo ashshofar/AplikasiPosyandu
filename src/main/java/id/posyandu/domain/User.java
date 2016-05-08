@@ -1,10 +1,16 @@
 package id.posyandu.domain;
 
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -18,12 +24,36 @@ public class User {
 
     private String nama;
 
+    private String tempatLahir;
+    
+    @Temporal(TemporalType.DATE)
+    private Date tanggalLahir;
+    
+    private String alamat;
+    
+    private String telepon;
+    
+    private String foto;
+    
     private String username;
 
     private String password;
+    
+    @ManyToOne
+    @JoinColumn
+    private Jabatan jabatan;
+    
+    @Column(nullable = false)
+    private boolean active;
 
-    private String jabatan;
+    public Jabatan getJabatan() {
+        return jabatan;
+    }
 
+    public void setJabatan(Jabatan jabatan) {
+        this.jabatan = jabatan;
+    }
+    
     public String getUserId() {
         return userId;
     }
@@ -38,6 +68,46 @@ public class User {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    public String getTempatLahir() {
+        return tempatLahir;
+    }
+
+    public void setTempatLahir(String tempatLahir) {
+        this.tempatLahir = tempatLahir;
+    }
+
+    public Date getTanggalLahir() {
+        return tanggalLahir;
+    }
+
+    public void setTanggalLahir(Date tanggalLahir) {
+        this.tanggalLahir = tanggalLahir;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public String getTelepon() {
+        return telepon;
+    }
+
+    public void setTelepon(String telepon) {
+        this.telepon = telepon;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getUsername() {
@@ -56,12 +126,15 @@ public class User {
         this.password = password;
     }
 
-    public String getJabatan() {
-        return jabatan;
+
+    public boolean isActive() {
+        return active;
     }
 
-    public void setJabatan(String jabatan) {
-        this.jabatan = jabatan;
+    public void setActive(boolean active) {
+        this.active = active;
     }
+    
+    
     
 }

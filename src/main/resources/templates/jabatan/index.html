@@ -12,50 +12,25 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div th:fragment="content">        
-            <!-- form -->
+        <div th:fragment="content">  
             <div class="clearfix"></div>
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Jabatan</h2>
+                            <h1>Jabatan</h1>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <br />
-                            <form th:action="@{/jabatan/save}" th:object="${jabatan}" method="post" class="form-horizontal form-label-left" id="form1">
-
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nama">Nama Jabatan<span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{nama}" required="required" class="form-control col-md-7 col-xs-12"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="deskripsi">Deskripsi<span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{deskripsi}" required="required" class="form-control col-md-7 col-xs-12"/>
-                                    </div>
-                                </div>
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                        <button class="btn btn-primary">Simpan</button>
-                                    </div>
-                                </div>
-
-                            </form>
-
+                            <div th:replace="/fragments/alert"></div>
+                            <a th:href="@{/jabatan/form}">
+                                <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>
+                                    &nbsp;Tambah Jabatan</button>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- End form -->  
 
             <!-- Table -->
             <div class="clearfix">
@@ -79,8 +54,31 @@ and open the template in the editor.
                                             <td th:text="${jabatan.nama}">Nama Jabatan</td>
                                             <td th:text="${jabatan.deskripsi}">Deskripsi</td>
                                             <td align="center">
-                                                <a th:href="@{/jabatan/edit/{id}(id=${jabatan.jabatanId})}"><span class="glyphicon glyphicon-edit"></span></a> &nbsp; &nbsp;
-                                                <a th:href="@{/jabatan/delete/{id}(id=${jabatan.jabatanId})}"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <form th:action="@{/jabatan/edit/{id}(id=${jabatan.jabatanId})}" th:object="${jabatan}" method="get" id="formedit">
+                                                                <button type="submit" class="btn btn-primary btn-xs">
+                                                                    <i class="glyphicon glyphicon-eye-open"></i> &nbsp; Lihat
+                                                                </button>&nbsp;&nbsp;
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form th:action="@{/jabatan/edit/{id}(id=${jabatan.jabatanId})}" th:object="${jabatan}" method="get" id="formedit">
+                                                                <button type="submit" class="btn btn-success btn-xs">
+                                                                    <i class="glyphicon glyphicon-edit"></i> &nbsp; Edit &nbsp;
+                                                                </button>&nbsp;&nbsp;
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form th:action="@{/jabatan/delete/{id}(id=${jabatan.jabatanId})}" th:object="${jabatan}" method="get" id="formhapus">
+                                                                <button type="submit" class="btn btn-danger btn-xs">
+                                                                    <i class="glyphicon glyphicon-trash"></i> Hapus
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                             </td>
                                         </tr>
                                     </tbody>

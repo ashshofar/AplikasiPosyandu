@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -21,11 +22,18 @@ public class JabatanController {
     private JabatanService jabatanService;
     
     @RequestMapping(value = {"/jabatan", "/jabatan/savepage"}, method = RequestMethod.GET)
-    public String savePage(Model model){
-        model.addAttribute("jabatan", new Jabatan());
+    public String index(Model model){
         model.addAttribute("allJabatans", (Collection<Jabatan>) jabatanService.getAllJabatans());
         
         return "/jabatan/index";
+    }
+    
+    @RequestMapping(value = "/jabatan/form", method = RequestMethod.GET)
+    public String viewForm(Model model){
+        
+        model.addAttribute("jabatan", new Jabatan());
+        
+        return "/jabatan/form";
     }
     
     @RequestMapping(value = {"/jabatan/save"}, method = RequestMethod.POST)

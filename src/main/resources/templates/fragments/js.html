@@ -51,22 +51,22 @@
 
 
 <!-- select2 -->
-  <script>
-    $(document).ready(function() {
-      $(".select2_single").select2({
-        placeholder: "",
-        allowClear: true
-      });
-      $(".select2_group").select2({});
-      $(".select2_multiple").select2({
-        maximumSelectionLength: 4,
-        placeholder: "With Max Selection limit 4",
-        allowClear: true
-      });
+<script>
+    $(document).ready(function () {
+        $(".select2_single").select2({
+            placeholder: "",
+            allowClear: true
+        });
+        $(".select2_group").select2({});
+        $(".select2_multiple").select2({
+            maximumSelectionLength: 4,
+            placeholder: "With Max Selection limit 4",
+            allowClear: true
+        });
     });
-  </script>
- <!-- /select2 --> 
- 
+</script>
+<!-- /select2 --> 
+
 <!-- DataTables -->
 <script>
     var handleDataTableButtons = function () {
@@ -169,6 +169,7 @@
 </script>
 <!-- /form validation -->
 
+<!-- Sweet Alert Save -->
 <script>
     document.querySelector('#form1').addEventListener('submit', function (e) {
         var form = this;
@@ -200,3 +201,44 @@
         });
     });
 </script>
+<!-- /Sweet Alert Save -->
+
+<!-- Sweet Alert Delete -->
+<script>
+    /*<![CDATA[*/
+    var deleteLink = document.querySelectorAll('#formhapus');
+
+    for (var i = 0; i < deleteLink.length; i++) {
+        deleteLink[i].addEventListener('click', function (event) {
+            var form = this;
+            event.preventDefault();
+            swal({
+                title: "Apakah Anda Yakin?",
+                text: "Data Yang Terhapus Tidak Bisa Dikembalikan",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Ya',
+                cancelButtonText: "Tidak",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        title: 'Sukses',
+                        text: 'Data Telah Terhapus',
+                        type: 'success'
+                    }, function () {
+                        form.submit();
+                    });
+                } else {
+                    swal("Di Batalkan", "Data Tidak Terhapus", "error");
+                }
+            });
+        });
+    }
+
+    /*]]>*/
+</script>
+<!-- /Sweet Alert Delete -->

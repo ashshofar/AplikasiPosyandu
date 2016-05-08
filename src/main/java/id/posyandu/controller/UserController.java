@@ -4,12 +4,17 @@ import id.posyandu.domain.Jabatan;
 import id.posyandu.domain.User;
 import id.posyandu.service.JabatanService;
 import id.posyandu.service.UserService;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +31,28 @@ public class UserController {
     @Autowired
     JabatanService jabatanService;
     
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+    
     @RequestMapping(value = {"/user", "/user/savepage"}, method = RequestMethod.GET)
-    public String savePage(Model model) {
-        model.addAttribute("user", new User());
+    public String index(Model model) {
+        
         model.addAttribute("allUsers", (ArrayList<User>) userService.getAllUsers());
         model.addAttribute("allJabatans", (Collection<Jabatan>) jabatanService.getAllJabatans());
         return "/user/index";
+    }
+    
+    @RequestMapping(value = "/user/form", method = RequestMethod.GET)
+    public String viewForm(Model model){
+        
+       model.addAttribute("user", new User());
+       model.addAttribute("allJabatans", (Collection<Jabatan>) jabatanService.getAllJabatans());
+        
+        return "/user/form";
     }
     
     @RequestMapping(value = {"/user/save"}, method = RequestMethod.POST)
@@ -39,9 +60,9 @@ public class UserController {
             final RedirectAttributes redirectAttributes) {
 
         if (userService.saveUser(user) != null) {
-            redirectAttributes.addFlashAttribute("saveUser", "success");
+            redirectAttributes.addFlashAttribute("save", "success");
         } else {
-            redirectAttributes.addFlashAttribute("saveUser", "unsuccess");
+            redirectAttributes.addFlashAttribute("save", "unsuccess");
         }
 
         return "redirect:/user/savepage";

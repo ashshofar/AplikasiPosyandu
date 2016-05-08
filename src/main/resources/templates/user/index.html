@@ -12,68 +12,24 @@ and open the template in the editor.
     </head>
     <body>
         <div th:fragment="content">        
-            <!-- form -->
             <div class="clearfix"></div>
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Pengguna</h2>
+                            <h1>Pengguna</h1>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <br />
-
-                            <form th:action="@{/user/save}" th:object="${user}" method="post" class="form-horizontal form-label-left" id="form1">
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nama">Nama<span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{nama}" required="required" class="form-control col-md-7 col-xs-12"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">Username<span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{username}" required="required" class="form-control col-md-7 col-xs-12"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Password<span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{password}" required="required" class="form-control col-md-7 col-xs-12"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="jabatan">Jabatan<span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select th:field="*{jabatan}" class="select2_single form-control col-md-7 col-xs-12" placeholder="Pilih Jabatan">
-                                            <option value="NONE"></option>
-                                            <option th:each="jabatan : ${allJabatans}"
-                                                    th:value="${jabatan.jabatanId}"
-                                                    th:text="${jabatan.nama}">Cangkuang</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                        <input type="submit" class="btn btn-primary" value="Simpan"/>
-                                    </div>
-                                </div>
-
-                            </form>
-
+                            <div th:replace="/fragments/alert"></div>
+                            <a th:href="@{/user/form}">
+                                <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>
+                                    &nbsp;Tambah Pengguna</button>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- End form -->  
+            </div> 
 
             <!-- Table -->
             <div class="clearfix">
@@ -104,8 +60,15 @@ and open the template in the editor.
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <form th:action="@{/user/edit/{id}(id=${user.userId})}" th:object="${user}" method="get" id="formedit">
+                                                            <form th:action="@{/jabatan/edit/{id}(id=${user.userId})}" th:object="${jabatan}" method="get" id="formedit">
                                                                 <button type="submit" class="btn btn-primary btn-xs">
+                                                                    <i class="glyphicon glyphicon-eye-open"></i> &nbsp; Lihat
+                                                                </button>&nbsp;&nbsp;
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form th:action="@{/user/edit/{id}(id=${user.userId})}" th:object="${user}" method="get" id="formedit">
+                                                                <button type="submit" class="btn btn-success btn-xs">
                                                                     <i class="glyphicon glyphicon-edit"></i> &nbsp; Edit &nbsp;
                                                                 </button>&nbsp;&nbsp;
                                                             </form>
@@ -129,43 +92,6 @@ and open the template in the editor.
                 </div>
             </div>
             <!-- end Table -->
-            <script>
-                /*<![CDATA[*/
-                var deleteLink = document.querySelectorAll('#formhapus');
-
-                for (var i = 0; i < deleteLink.length; i++) {
-                    deleteLink[i].addEventListener('click', function (event) {
-                        var form = this;
-                        event.preventDefault();
-                        swal({
-                            title: "Apakah Anda Yakin?",
-                            text: "Data Yang Terhapus Tidak Bisa Dikembalikan",
-                            type: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: '#DD6B55',
-                            confirmButtonText: 'Ya',
-                            cancelButtonText: "Tidak",
-                            closeOnConfirm: false,
-                            closeOnCancel: false
-                        },
-                        function (isConfirm) {
-                            if (isConfirm) {
-                                swal({
-                                    title: 'Sukses',
-                                    text: 'Data Telah Tersimpan',
-                                    type: 'success'
-                                }, function () {
-                                    form.submit();
-                                });
-                            } else {
-                                swal("Di Batalkan", "Data Tidak Terhapus", "error");
-                            }
-                        });
-                    });
-                }
-
-                /*]]>*/
-            </script>
         </div>   
     </body>
 </html>
