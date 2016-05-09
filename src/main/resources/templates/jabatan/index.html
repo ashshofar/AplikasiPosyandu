@@ -51,7 +51,7 @@ and open the template in the editor.
                                             <td colspan="10" align="center">Tidak ada Jabatan yang tersimpan</td> 
                                         </tr>
                                         <tr th:each="jabatan : ${allJabatans}">
-                                            <td th:text="${jabatan.nama}">Nama Jabatan</td>
+                                            <td th:text="${jabatan.namaJabatan}">Nama Jabatan</td>
                                             <td th:text="${jabatan.deskripsi}">Deskripsi</td>
                                             <td align="center">
                                                 <table>
